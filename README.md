@@ -1,4 +1,4 @@
-# 📘 DevOps Fundamentals – Introduction
+# DevOps Fundamentals – Introduction
 
 Before learning any DevOps tools (Terraform, Docker, Kubernetes, CI/CD), it is important to understand **what DevOps is, why it exists, and how it works in real companies**.
 
@@ -6,7 +6,7 @@ This document explains DevOps **from first principles**, not from tools.
 
 ---
 
-## 🎯 Objective
+## Objective
 
 By the end of this session, trainees will understand:
 * What DevOps really means.
@@ -18,7 +18,7 @@ By the end of this session, trainees will understand:
 
 ---
 
-## 1️⃣ What is DevOps?
+## What is DevOps?
 
 **DevOps = Development + Operations**
 
@@ -30,18 +30,18 @@ DevOps is a **set of practices, culture, and automation** that helps teams:
 
 > [!IMPORTANT]
 > **DevOps is NOT:**
-> * ❌ A single tool
-> * ❌ Just CI/CD
-> * ❌ Only automation scripts
+> * A single tool
+> * Just CI/CD
+> * Only automation scripts
 >
 > **DevOps IS:**
-> * ✅ A culture of collaboration
-> * ✅ Automation of repetitive work
-> * ✅ Faster and safer software delivery
+> * A culture of collaboration
+> * Automation of repetitive work
+> * Faster and safer software delivery
 
 ---
 
-## 2️⃣ Why DevOps Was Needed (The Problem)
+## Why DevOps Was Needed (The Problem)
 
 ### Traditional Model (Before DevOps)
 In the legacy model, developers and operations teams were "siloed."
@@ -61,7 +61,7 @@ In the legacy model, developers and operations teams were "siloed."
 
 ---
 
-## 3️⃣ Software Development Life Cycle (SDLC)
+## Software Development Life Cycle (SDLC)
 
 Every application follows this cycle:
 **Plan** → **Code** → **Build** → **Test** → **Release** → **Deploy** → **Operate** → **Monitor**
@@ -76,7 +76,7 @@ Every application follows this cycle:
 
 ---
 
-## 4️⃣ How DevOps Improves SDLC
+## How DevOps Improves SDLC
 
 DevOps introduces **automation** and **continuous feedback**.
 
@@ -85,7 +85,7 @@ DevOps introduces **automation** and **continuous feedback**.
 
 ---
 
-## 5️⃣ Core Principles of DevOps
+## Core Principles of DevOps
 
 * **Collaboration:** Shared responsibility between Dev and Ops.
 * **Automation:** Removing manual steps to reduce human error.
@@ -95,7 +95,7 @@ DevOps introduces **automation** and **continuous feedback**.
 
 ---
 
-## 6️⃣ DevOps Toolchain (High-Level Overview)
+## DevOps Toolchain (High-Level Overview)
 
 | Area | Purpose | Examples |
 | :--- | :--- | :--- |
@@ -108,7 +108,7 @@ DevOps introduces **automation** and **continuous feedback**.
 
 ---
 
-## 7️⃣ Traditional vs. DevOps Flow
+## Traditional vs. DevOps Flow
 
 ### Traditional Flow
 `Code` → `Manual Build` → `Manual Deploy` → `Downtime`
@@ -118,7 +118,7 @@ DevOps introduces **automation** and **continuous feedback**.
 
 ---
 
-## 8️⃣ Real-World DevOps Flow (Simplified)
+## Real-World DevOps Flow (Simplified)
 
 1.  Developer pushes code to **Version Control**.
 2.  The change triggers an **Automated Pipeline**.
@@ -129,7 +129,7 @@ DevOps introduces **automation** and **continuous feedback**.
 
 ---
 
-## 9️⃣ Role of a DevOps Engineer
+## Role of a DevOps Engineer
 
 A DevOps engineer acts as an **enabler**. Their goal is to:
 * Automate infrastructure and deployments.
@@ -139,7 +139,7 @@ A DevOps engineer acts as an **enabler**. Their goal is to:
 
 ---
 
-## 🔟 What You Will Learn After This
+## What You Will Learn After This
 
 With the foundation set, the roadmap ahead includes:
 1.  **Infrastructure Automation** (Terraform)
@@ -149,10 +149,10 @@ With the foundation set, the roadmap ahead includes:
 
 ---
 
-## ⭐ Key Takeaway
+## Key Takeaway
 
 > *"DevOps is about **how** we build and deliver software, not just the tools we use."*
 
 ---
 
-🚀 **With this foundation, you are ready to start learning DevOps tools confidently.**
+**With this foundation, you are ready to start learning DevOps tools confidently.**
