@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DevOps Lifecycle — Interactive Animation</title>
+<style>
+  :root{
+    --dev:#2563eb; --ops:#16a34a; --bg:#0f172a; --card:#1e293b;
+    --txt:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1e293b,#0f172a 70%);
+    color:var(--txt);min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;padding:24px;
+  }
+  h1{font-size:1.8rem;margin-bottom:4px;text-align:center;}
+  h1 .dev{color:var(--accent);} h1 .ops{color:#4ade80;}
+  p.sub{color:var(--muted);margin-bottom:18px;text-align:center;max-width:620px;}
+  .stage{font-size:.7rem;}
+  .wrap{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;align-items:center;max-width:1100px;}
+  svg{width:min(620px,92vw);height:auto;}
+  .loop-path{fill:none;stroke:#334155;stroke-width:26;stroke-linecap:round;}
+  .loop-dev{fill:none;stroke:url(#gd);stroke-width:6;stroke-dasharray:6 10;
+    animation:dash 3s linear infinite;}
+  .loop-ops{fill:none;stroke:url(#go);stroke-width:6;stroke-dasharray:6 10;
+    animation:dash 3s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-160;}}
+  .marker{fill:#fbbf24;filter:drop-shadow(0 0 6px #fbbf24);}
+  .node{cursor:pointer;transition:transform .2s;}
+  .node:hover{transform:scale(1.12);}
+  .node circle{stroke:#0f172a;stroke-width:3;transition:r .2s;}
+  .node.active circle{stroke:#fbbf24;stroke-width:4;}
+  .node text{fill:#fff;font-size:13px;font-weight:600;text-anchor:middle;pointer-events:none;}
+  .node .ico{font-size:18px;}
+  .panel{background:var(--card);border-radius:16px;padding:22px;width:min(360px,92vw);
+    box-shadow:0 12px 40px rgba(0,0,0,.4);border:1px solid #334155;}
+  .panel .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.08em;
+    padding:3px 10px;border-radius:999px;margin-bottom:10px;text-transform:uppercase;}
+  .panel h2{font-size:1.3rem;margin-bottom:8px;}
+  .panel p{color:var(--muted);line-height:1.55;font-size:.95rem;margin-bottom:12px;}
+  .panel .tools{display:flex;flex-wrap:wrap;gap:6px;}
+  .panel .tools span{background:#0f172a;border:1px solid #334155;color:var(--accent);
+    font-size:.72rem;padding:4px 9px;border-radius:8px;}
+  .legend{display:flex;gap:20px;margin-top:18px;font-size:.82rem;color:var(--muted);}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle;}
+  .hint{margin-top:14px;font-size:.8rem;color:var(--muted);}
+  button.toggle{margin-top:16px;background:var(--accent);color:#0f172a;border:none;
+    padding:10px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  button.toggle:hover{filter:brightness(1.1);}
+</style>
+</head>
+<body>
+  <h1><span class="dev">Dev</span><span class="ops">Ops</span> Lifecycle</h1>
+  <p class="sub">The endless loop of continuous delivery. <b>Click any stage</b> to learn what happens there and which tools you'll use. Watch the glowing marker travel the infinity path — DevOps never stops.</p>
+
+  <div class="wrap">
+    <svg viewBox="0 0 600 320" role="img" aria-label="DevOps infinity loop">
+      <defs>
+        <linearGradient id="gd" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#38bdf8"/>
+        </linearGradient>
+        <linearGradient id="go" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#16a34a"/><stop offset="100%" stop-color="#4ade80"/>
+        </linearGradient>
+      </defs>
+
+      <!-- infinity path: left loop = Dev, right loop = Ops -->
+      <path id="track" class="loop-path"
+        d="M300,160 C300,60 120,60 120,160 C120,260 300,260 300,160 C300,60 480,60 480,160 C480,260 300,260 300,160 Z"/>
+      <path class="loop-dev"
+        d="M300,160 C300,60 120,60 120,160 C120,260 300,260 300,160"/>
+      <path class="loop-ops"
+        d="M300,160 C300,60 480,60 480,160 C480,260 300,260 300,160"/>
+
+      <!-- traveling marker -->
+      <circle class="marker" r="7">
+        <animateMotion dur="9s" repeatCount="indefinite"
+          path="M300,160 C300,60 120,60 120,160 C120,260 300,260 300,160 C300,60 480,60 480,160 C480,260 300,260 300,160 Z"/>
+      </circle>
+
+      <g id="nodes"></g>
+    </svg>
+
+    <div class="panel" id="panel">
+      <span class="tag" id="ptag">Welcome</span>
+      <h2 id="ptitle">Start the loop 🔄</h2>
+      <p id="pdesc">DevOps is a continuous cycle, not a straight line. The left loop is the <b style="color:#38bdf8">Dev</b> side (plan → code → build → test); the right loop is the <b style="color:#4ade80">Ops</b> side (release → deploy → operate → monitor). Feedback from Monitor flows right back into Plan — forever.</p>
+      <div class="tools" id="ptools"></div>
+      <p class="hint">💡 Tip: each stage maps to a module in this course.</p>
+      <button class="toggle" id="auto">⏸ Pause auto-tour</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:#38bdf8"></i>Dev side</span>
+    <span><i style="background:#4ade80"></i>Ops side</span>
+    <span><i style="background:#fbbf24"></i>Flow marker</span>
+  </div>
+
+<script>
+  // 8 stages positioned around the infinity loop
+  const stages = [
+    {id:"plan",   ico:"📋", label:"Plan",    x:300,y:70,  side:"dev",
+      desc:"Define what to build. Gather requirements, write user stories, design the architecture and break work into small batches.",
+      tools:["Jira","Confluence","GitHub Issues"]},
+    {id:"code",   ico:"💻", label:"Code",    x:175,y:95,  side:"dev",
+      desc:"Developers write the source code and collaborate using version control. Small, reviewed commits keep changes safe.",
+      tools:["Git","GitHub","VS Code"]},
+    {id:"build",  ico:"🔨", label:"Build",   x:120,y:160, side:"dev",
+      desc:"Compile and package the application into a portable artifact — usually a container image that runs identically everywhere.",
+      tools:["Docker","Maven","npm"]},
+    {id:"test",   ico:"🧪", label:"Test",    x:175,y:225, side:"dev",
+      desc:"Automatically run unit, integration and security tests. Catch bugs early — before they ever reach a user.",
+      tools:["Jest","JUnit","Trivy"]},
+    {id:"release",ico:"📦", label:"Release", x:300,y:250, side:"ops",
+      desc:"Promote a tested, versioned build through the pipeline. Approvals and tags decide what is ready for production.",
+      tools:["GitHub Actions","Jenkins"]},
+    {id:"deploy", ico:"🚀", label:"Deploy",  x:425,y:225, side:"ops",
+      desc:"Ship the release to live infrastructure with zero-downtime strategies like rolling or blue-green deployments.",
+      tools:["Kubernetes","Terraform","Helm"]},
+    {id:"operate",ico:"⚙️", label:"Operate", x:480,y:160, side:"ops",
+      desc:"Keep the system healthy and scalable in production. Manage capacity, self-healing and incident response.",
+      tools:["Kubernetes","AWS","Ansible"]},
+    {id:"monitor",ico:"📊", label:"Monitor", x:425,y:95,  side:"ops",
+      desc:"Observe metrics, logs and traces. Insights feed straight back into the next Plan — closing the loop.",
+      tools:["Prometheus","Grafana","Loki"]},
+  ];
+
+  const ns="http://www.w3.org/2000/svg";
+  const g=document.getElementById("nodes");
+  stages.forEach((s,i)=>{
+    const node=document.createElementNS(ns,"g");
+    node.setAttribute("class","node");node.setAttribute("transform",`translate(${s.x},${s.y})`);
+    node.dataset.i=i;
+    const c=document.createElementNS(ns,"circle");
+    c.setAttribute("r","26");
+    c.setAttribute("fill",s.side==="dev"?"#2563eb":"#16a34a");
+    const ico=document.createElementNS(ns,"text");
+    ico.setAttribute("class","ico");ico.setAttribute("dy","-2");ico.textContent=s.ico;
+    const lbl=document.createElementNS(ns,"text");
+    lbl.setAttribute("dy","14");lbl.setAttribute("font-size","10");lbl.textContent=s.label;
+    node.append(c,ico,lbl);
+    node.addEventListener("click",()=>{select(i);stopAuto();});
+    g.appendChild(node);
+  });
+
+  const panel={tag:document.getElementById("ptag"),title:document.getElementById("ptitle"),
+    desc:document.getElementById("pdesc"),tools:document.getElementById("ptools")};
+  function select(i){
+    document.querySelectorAll(".node").forEach(n=>n.classList.remove("active"));
+    document.querySelector(`.node[data-i="${i}"]`).classList.add("active");
+    const s=stages[i];
+    panel.tag.textContent=s.side==="dev"?"Dev side":"Ops side";
+    panel.tag.style.background=s.side==="dev"?"#1e3a8a":"#14532d";
+    panel.tag.style.color=s.side==="dev"?"#93c5fd":"#86efac";
+    panel.title.textContent=`${s.ico} ${s.label}`;
+    panel.desc.innerHTML=s.desc;
+    panel.tools.innerHTML=s.tools.map(t=>`<span>${t}</span>`).join("");
+  }
+
+  // auto-tour
+  let idx=0,timer=null,running=true;
+  function tick(){select(idx);idx=(idx+1)%stages.length;}
+  function startAuto(){running=true;document.getElementById("auto").textContent="⏸ Pause auto-tour";
+    tick();timer=setInterval(tick,2600);}
+  function stopAuto(){running=false;clearInterval(timer);document.getElementById("auto").textContent="▶ Resume auto-tour";}
+  document.getElementById("auto").addEventListener("click",()=>running?stopAuto():startAuto());
+  startAuto();
+</script>
+</body>
+</html>

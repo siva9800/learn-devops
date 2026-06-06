@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SDLC Models — Waterfall vs Agile (Animated)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;
+    min-height:100vh;padding:24px;display:flex;flex-direction:column;align-items:center;}
+  h1{font-size:1.7rem;margin-bottom:4px;text-align:center;}
+  p.sub{color:#94a3b8;margin-bottom:24px;text-align:center;max-width:640px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;max-width:1000px;}
+  @media(max-width:760px){.grid{grid-template-columns:1fr;}}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);}
+  .card h2{font-size:1.25rem;margin-bottom:6px;}
+  .card .meta{font-size:.8rem;color:#94a3b8;margin-bottom:18px;}
+  .wf h2{color:#f87171;} .ag h2{color:#4ade80;}
+  .step{display:flex;align-items:center;gap:12px;padding:11px 14px;margin-bottom:10px;
+    border-radius:10px;background:#0f172a;border:1px solid #334155;opacity:.35;
+    transition:opacity .4s,transform .4s,border-color .4s;}
+  .step.on{opacity:1;transform:translateX(6px);}
+  .wf .step.on{border-color:#f87171;box-shadow:0 0 14px rgba(248,113,113,.3);}
+  .ag .step.on{border-color:#4ade80;box-shadow:0 0 14px rgba(74,222,128,.3);}
+  .step .ico{font-size:1.3rem;} .step .name{font-weight:600;}
+  .step .sm{font-size:.74rem;color:#94a3b8;margin-left:auto;}
+  .sprintbadge{display:inline-block;font-size:.72rem;font-weight:700;color:#0f172a;
+    background:#4ade80;padding:3px 10px;border-radius:999px;margin-left:8px;}
+  .takeaway{margin-top:14px;font-size:.82rem;color:#cbd5e1;line-height:1.5;
+    border-left:3px solid #475569;padding-left:10px;}
+  .wf .takeaway{border-color:#f87171;} .ag .takeaway{border-color:#4ade80;}
+  .controls{margin-top:26px;display:flex;gap:12px;align-items:center;}
+  button{background:#38bdf8;color:#0f172a;border:none;padding:10px 18px;border-radius:10px;
+    font-weight:700;cursor:pointer;font-size:.9rem;}
+  button:hover{filter:brightness(1.1);}
+  .counter{font-size:.85rem;color:#94a3b8;}
+  .clock{font-variant-numeric:tabular-nums;font-weight:700;color:#fbbf24;}
+</style>
+</head>
+<body>
+  <h1>📘 SDLC Models — Waterfall vs Agile</h1>
+  <p class="sub">Same software, two philosophies. Watch how <b style="color:#f87171">Waterfall</b> marches once through every stage before delivering anything, while <b style="color:#4ade80">Agile</b> delivers a small working slice every sprint — and repeats.</p>
+
+  <div class="grid">
+    <div class="card wf">
+      <h2>🌊 Waterfall</h2>
+      <div class="meta">Sequential • deliver once at the very end • change is expensive</div>
+      <div id="wf"></div>
+      <div class="takeaway">First usable software appears <b>only after the last stage</b>. If requirements were wrong, you find out far too late.</div>
+    </div>
+
+    <div class="card ag">
+      <h2>🔁 Agile <span class="sprintbadge" id="sprintno">Sprint 1</span></h2>
+      <div class="meta">Iterative sprints • deliver working software every cycle • embraces change</div>
+      <div id="ag"></div>
+      <div class="takeaway">Each short sprint ships a <b>small working feature</b>, gets feedback, and improves — risk stays tiny and constant.</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="play">⏸ Pause</button>
+    <button id="reset">↻ Restart</button>
+    <span class="counter">Elapsed: <span class="clock" id="clock">0</span> weeks &nbsp;|&nbsp; Working features shipped — WF: <span id="wfShip">0</span> · Agile: <span id="agShip">0</span></span>
+  </div>
+
+<script>
+  const wfSteps=[
+    {ico:"📋",name:"Requirements",sm:"weeks 1-2"},
+    {ico:"🎨",name:"Design",sm:"weeks 3-4"},
+    {ico:"💻",name:"Develop",sm:"weeks 5-8"},
+    {ico:"🧪",name:"Test",sm:"weeks 9-10"},
+    {ico:"🚀",name:"Deploy",sm:"week 11"},
+    {ico:"🔧",name:"Maintain",sm:"week 12"},
+  ];
+  const agSteps=[
+    {ico:"📋",name:"Plan",sm:""},
+    {ico:"💻",name:"Develop",sm:""},
+    {ico:"🧪",name:"Test",sm:""},
+    {ico:"📦",name:"Release",sm:"✅ shippable"},
+  ];
+
+  function render(el,steps){
+    el.innerHTML="";
+    steps.forEach((s,i)=>{
+      const d=document.createElement("div");d.className="step";d.dataset.i=i;
+      d.innerHTML=`<span class="ico">${s.ico}</span><span class="name">${s.name}</span><span class="sm">${s.sm}</span>`;
+      el.appendChild(d);
+    });
+  }
+  const wfEl=document.getElementById("wf"),agEl=document.getElementById("ag");
+  render(wfEl,wfSteps);render(agEl,agSteps);
+
+  let week=0,wfShip=0,agShip=0,sprint=1,playing=true,timer=null;
+  const clock=document.getElementById("clock");
+  function setOn(el,idx){el.querySelectorAll(".step").forEach(s=>
+    s.classList.toggle("on",+s.dataset.i===idx));}
+
+  function step(){
+    week++;clock.textContent=week;
+    // Waterfall: one stage every 2 "weeks", ships once at the end (12 weeks)
+    const wfIdx=Math.min(Math.floor((week-1)/2),wfSteps.length-1);
+    setOn(wfEl,wfIdx);
+    if(week===12){wfShip=1;document.getElementById("wfShip").textContent=wfShip;}
+    // Agile: 4 stages per 2-week sprint, ships every sprint
+    const posInSprint=(week-1)%2;            // 2 weeks per sprint
+    const agIdx=Math.min(Math.floor(posInSprint*2 + (week%2?0:1)),agSteps.length-1);
+    setOn(agEl,agIdx);
+    if(week%2===0){ // end of a sprint
+      agShip++;document.getElementById("agShip").textContent=agShip;
+      sprint++;document.getElementById("sprintno").textContent="Sprint "+sprint;
+    }
+    if(week>=12){clearInterval(timer);playing=false;document.getElementById("play").textContent="▶ Done";}
+  }
+
+  function play(){playing=true;document.getElementById("play").textContent="⏸ Pause";
+    timer=setInterval(step,900);}
+  function pause(){playing=false;clearInterval(timer);document.getElementById("play").textContent="▶ Play";}
+  function reset(){clearInterval(timer);week=0;wfShip=0;agShip=0;sprint=1;
+    document.getElementById("wfShip").textContent=0;document.getElementById("agShip").textContent=0;
+    document.getElementById("agShip").textContent=0;document.getElementById("sprintno").textContent="Sprint 1";
+    clock.textContent=0;setOn(wfEl,-1);setOn(agEl,-1);play();}
+
+  document.getElementById("play").addEventListener("click",()=>playing?pause():play());
+  document.getElementById("reset").addEventListener("click",reset);
+  play();
+</script>
+</body>
+</html>
