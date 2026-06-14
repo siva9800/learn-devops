@@ -6,7 +6,7 @@ Before you touch a single tool, you need to understand what DevOps actually is, 
 
 ## What problem does this module solve?
 
-People often jump straight into Docker or Kubernetes and end up as copy-paste engineers who cannot debug because they never learned *what the tools are for*. This module fixes that: it teaches the software lifecycle and the DevOps culture first, so every later tool has a place to live in your mental model.
+People often jump straight into Docker or Kubernetes and end up as copy-paste engineers who cannot debug because they never learned *what the tools are for*. This module fixes that: it teaches **how software is built (the SDLC) first**, then **how DevOps improves that process**, so every later tool has a place to live in your mental model.
 
 ```mermaid
 flowchart LR
@@ -25,8 +25,8 @@ Open these live online in any browser (no download):
 
 | Day | Topic | What you will learn |
 |---|---|---|
-| [Day 1](day1-what-is-devops/notes.md) | **What is DevOps?** | Culture, why it exists, CALMS, the toolchain, and how it all connects |
-| [Day 2](day2-sdlc/notes.md) | **Software Development Life Cycle** | All SDLC stages and models (Waterfall, Agile, Spiral, V-Model), and how DevOps improves each |
+| [Day 1](day1-sdlc/notes.md) | **Software Development Life Cycle** | How software is built: all SDLC stages and models (Waterfall, Agile, Spiral, V-Model) |
+| [Day 2](day2-what-is-devops/notes.md) | **What is DevOps?** | Culture, why it exists, CALMS, the toolchain, and how it improves the SDLC |
 
 ## Learning outcomes
 
@@ -38,6 +38,6 @@ By the end of this module you will be able to:
 
 ## How to use this module
 
-Read Day 1, then Day 2, in order. Open the animations when a concept feels abstract. There is nothing to install yet - this module is about understanding, not tooling.
+Read Day 1, then Day 2, in order. Day 1 teaches how software is built; Day 2 shows how DevOps improves it. Open the animations when a concept feels abstract. There is nothing to install yet - this module is about understanding, not tooling.
 
-Start with [Day 1 - What is DevOps?](day1-what-is-devops/notes.md). When you finish, move on to the [Git module](../learn-git).
+Start with [Day 1 - The Software Development Life Cycle](day1-sdlc/notes.md). When you finish, move on to the [Git module](../learn-git).
