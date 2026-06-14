@@ -17,9 +17,9 @@ flowchart LR
 
 ## Interactive demos
 
-Open these in any browser (download the repo and open the file):
-- [DevOps Lifecycle](animations/devops-lifecycle.html) - watch the continuous loop come alive.
-- [Waterfall vs Agile](animations/sdlc-models.html) - compare the two delivery models side by side.
+Open these live online in any browser (no download):
+- [DevOps Lifecycle](https://siva9800.github.io/devops-animations/devops/devops-lifecycle.html) - watch the continuous loop come alive.
+- [Waterfall vs Agile](https://siva9800.github.io/devops-animations/devops/sdlc-models.html) - compare the two delivery models side by side.
 
 ## Lessons
 
