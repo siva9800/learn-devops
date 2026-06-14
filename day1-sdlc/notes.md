@@ -49,33 +49,34 @@ It exists to give software work **discipline, predictability, and quality**. Wit
 
 ---
 
-## 3 The Stages of the SDLC
+## 3 The 7 Stages of the SDLC
 
-A modern SDLC flows through these stages, and then loops - feedback from running software feeds the next round of planning.
+The classic SDLC has **7 stages**, flowing from an idea to a running, maintained product. This is the standard model you should know for interviews.
 
 ```mermaid
 flowchart LR
-    Plan["Plan"] --> Design["Design"] --> Code["Code"] --> Build["Build"]
-    Build --> Test["Test"] --> Release["Release"] --> Deploy["Deploy"]
-    Deploy --> Operate["Operate"] --> Monitor["Monitor"]
-    Monitor -.feedback.-> Plan
+    A["1. Requirement<br/>Gathering & Analysis"] --> B["2. Planning"]
+    B --> C["3. Design"] --> D["4. Development<br/>(Coding)"]
+    D --> E["5. Testing"] --> F["6. Deployment"]
+    F --> G["7. Maintenance"]
+    G -.feedback / new requirements.-> A
 ```
 
 Each stage takes an **input** and produces an **output** that the next stage needs:
 
-| Stage | Purpose | Input | Output |
-|---|---|---|---|
-| **Planning** | Decide *what* to build | Business idea, market need | Requirements, scope |
-| **Design** | Decide *how* to build it | Requirements | Architecture, diagrams, tech choices |
-| **Development** | Write the code | Design docs | Source code |
-| **Build** | Package the application | Source code | A build artifact (jar, image, binary) |
-| **Testing** | Check it works | Artifact + test cases | Test report, verified build |
-| **Release** | Approve it for production | Verified build | A versioned, approved release |
-| **Deployment** | Run it in a real environment | Release | A running application |
-| **Operations** | Keep it running | Running app | Uptime and stability |
-| **Monitoring** | Observe and learn | Live metrics and logs | Insights that feed the next plan |
+| # | Stage | Purpose | Input | Output |
+|:-:|---|---|---|---|
+| 1 | **Requirement Gathering & Analysis** | Understand *what* the business and customers need | Business idea, customer needs | Requirements specification |
+| 2 | **Planning** | Decide cost, resources, timeline, and risks | Requirements | Project plan and schedule |
+| 3 | **Design** | Decide *how* to build it | Requirements + plan | Architecture, database, APIs, UI/UX (HLD + LLD) |
+| 4 | **Development (Coding)** | Write the application code | Design documents | Source code (with reviews and unit tests) |
+| 5 | **Testing** | Verify it works and fix bugs | Code + test cases | Tested, verified build |
+| 6 | **Deployment** | Release to production for end users | Verified build | Running application in production |
+| 7 | **Maintenance** | Keep it running and improving | Live application | Bug fixes, performance gains, new features |
 
-> Notice the loop at the end: **monitoring feeds back into planning.** Software is never "finished" - it is improved continuously. Remember this loop; it is the same shape as the DevOps lifecycle you will see tomorrow.
+> **HLD vs LLD:** in the Design stage, the **High-Level Design (HLD)** describes the overall architecture (the big picture - which systems, databases, and services), while the **Low-Level Design (LLD)** details each component (the inner workings - specific modules, classes, and logic).
+
+> Notice the loop back from **Maintenance** to **Requirement Gathering**: software is never truly "finished." Real usage produces new requirements, and the cycle begins again. Hold onto this loop - tomorrow you will see how DevOps turns it into a fast, automated, continuous cycle.
 
 ---
 
@@ -253,14 +254,14 @@ This contrast is the bridge to tomorrow. The "modern" column does not happen by 
 3. Why does a bug cost more the later it is found?
 4. What is the core weakness of Waterfall that Agile solves?
 5. In the V-Model, which testing stage pairs with "Requirements"?
-6. What does the feedback loop (monitoring back to planning) achieve?
+6. What does the feedback loop (maintenance back to requirements) achieve?
 
 ---
 
 ## Summary
 
 - The **SDLC** is the structured process of building software, stage by stage, from idea to maintenance.
-- The stages (plan, design, code, build, test, release, deploy, operate, monitor) each take an input and hand an output to the next - and the whole thing loops via feedback.
+- The 7 stages (requirement analysis, planning, design, development, testing, deployment, maintenance) each take an input and hand an output to the next - and the whole thing loops when maintenance surfaces new requirements.
 - **SDLC models** run those stages differently: Waterfall (sequential), Agile (iterative sprints, the modern default), Iterative, Spiral (risk-driven), and V-Model (test-paired).
 - Traditional models are slow and inflexible; the modern Agile + DevOps approach is fast, automated, and feedback-driven.
 - You now understand *how software is built*. Tomorrow you learn *how DevOps makes that process dramatically better*.
