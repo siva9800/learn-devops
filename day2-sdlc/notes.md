@@ -1,4 +1,6 @@
-# Software Development Life Cycle (SDLC) - Complete Guide
+# Day 2 - Software Development Life Cycle (SDLC)
+
+> **Goal of today:** understand the full software lifecycle and the main delivery models (Waterfall, Agile, Spiral, V-Model), and see exactly how DevOps improves each one.
 
 The **Software Development Life Cycle (SDLC)** defines **how software is planned, designed, developed, tested, deployed, and maintained**.
 
@@ -289,4 +291,6 @@ sequenceDiagram
 ---
 
 **Once SDLC is clear, DevOps tools become easy to understand and apply.**
-Next module → [`learn-git`](../../learn-git) to start with version control.
+
+**Previous:** [Day 1 - What is DevOps?](../day1-what-is-devops/notes.md)
+**Next module ->** [learn-git](../../learn-git) to start with version control.
